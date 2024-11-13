@@ -32,5 +32,5 @@ public class HuevoService {
     public Huevo obtenerHuevoPorId(Long id) {
         return huevoRepository.findById(id).orElse(null);
     }
-
+    
 }

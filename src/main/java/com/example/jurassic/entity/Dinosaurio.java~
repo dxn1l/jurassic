@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 public class Dinosaurio {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String dieta; // Herbívoro o Carnívoro
     private String tipoHabitat; // Terrestre, Acuático o Volador

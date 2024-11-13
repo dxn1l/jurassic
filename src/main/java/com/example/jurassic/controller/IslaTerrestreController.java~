@@ -1,0 +1,30 @@
+package com.example.jurassic.controller;
+
+import com.example.jurassic.entity.Dinosaurio;
+import com.example.jurassic.entity.IslaTerrestre;
+import com.example.jurassic.service.IslaTerrestreService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+
+@RestController
+@RequestMapping("/islaTerrestre")
+public class IslaTerrestreController {
+
+    private final IslaTerrestreService islaTerrestreService;
+
+    public IslaTerrestreController(IslaTerrestreService islaTerrestreService) {
+        this.islaTerrestreService = islaTerrestreService;
+    }
+
+    @PostMapping("/agregarDinosaurio")
+    public ResponseEntity<IslaTerrestre> agregarDinosaurio(@RequestBody Dinosaurio dinosaurio) {
+        IslaTerrestre isla = islaTerrestreService.agregarDinosaurio(new IslaTerrestre(), dinosaurio);
+        return ResponseEntity.ok(isla);
+    }
+
+    @GetMapping("/flujo")
+    public Flux<Dinosaurio> obtenerFlujoDinosaurios() {
+        return islaTerrestreService.flujoDinosaurios();
+    }
+}

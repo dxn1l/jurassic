@@ -1,36 +1,34 @@
 package com.example.jurassic.entity;
 
-import com.example.jurassic.service.DinosaurioService;
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-public class Dinosaurio {
-
+public class IslaAcuatica {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String dieta; // Herbívoro o Carnívoro
-    private String tipoHabitat; // Terrestre, Acuático o Volador
+    private String dieta;
+    private String tipoHabitat;
     private LocalDateTime fechaEclosion;
-    private int edad; // Edad inicial, que puede empezar en 0
+    private int edad;
 
-    // Constructor con parámetros
-    public Dinosaurio(String dieta, String tipoHabitat) {
+    public IslaAcuatica(Long id, String dieta, String tipoHabitat, LocalDateTime fechaEclosion, int edad) {
+        this.id = id;
         this.dieta = dieta;
         this.tipoHabitat = tipoHabitat;
-        this.fechaEclosion = LocalDateTime.now();
-        this.edad = 0;
+        this.fechaEclosion = fechaEclosion;
+        this.edad = edad;
     }
 
+    public IslaAcuatica() {
 
-    // Constructor vacío para JPA
-    public Dinosaurio() {
     }
 
-    // Getters y Setters
+    // Constructor, getters, setters
+
     public Long getId() {
         return id;
     }
@@ -38,21 +36,21 @@ public class Dinosaurio {
     public void setId(Long id) {
         this.id = id;
     }
-    
 
     public String getDieta() {
         return dieta;
     }
 
-    public void setDieta(String tipo) {
-        this.dieta = tipo;
+    public void setDieta(String dieta) {
+        this.dieta = dieta;
     }
+
     public String getTipoHabitat() {
         return tipoHabitat;
     }
 
     public void setTipoHabitat(String tipoHabitat) {
-        this.dieta = tipoHabitat;
+        this.tipoHabitat = tipoHabitat;
     }
 
     public LocalDateTime getFechaEclosion() {
@@ -71,14 +69,14 @@ public class Dinosaurio {
         this.edad = edad;
     }
 
-    @Override
     public String toString() {
-        return "Dinosaurio{" +
+        return "IslaAcuatica{" +
                 "id=" + id +
                 ", dieta='" + dieta + '\'' +
-                ", tipoHabitad='" + tipoHabitat + '\'' +
+                ", tipoHabitat='" + tipoHabitat + '\'' +
                 ", fechaEclosion=" + fechaEclosion +
                 ", edad=" + edad +
                 '}';
     }
+
 }

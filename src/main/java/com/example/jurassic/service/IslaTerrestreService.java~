@@ -1,0 +1,36 @@
+package com.example.jurassic.service;
+
+import com.example.jurassic.entity.Dinosaurio;
+import com.example.jurassic.entity.IslaTerrestre;
+import com.example.jurassic.repository.DinosaurioRepository;
+import com.example.jurassic.repository.IslaTerrestreRepository;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+
+@Service
+public class IslaTerrestreService {
+
+    private final IslaTerrestreRepository islaTerrestreRepository;
+    private final DinosaurioRepository dinosaurioRepository;
+
+    public IslaTerrestreService(IslaTerrestreRepository islaTerrestreRepository,
+                                DinosaurioRepository dinosaurioRepository) {
+        this.islaTerrestreRepository = islaTerrestreRepository;
+        this.dinosaurioRepository = dinosaurioRepository;
+    }
+
+    public IslaTerrestre agregarDinosaurio(IslaTerrestre islaTerrestre, Dinosaurio dinosaurio) {
+        // Guardar el dinosaurio primero, si es necesario
+        dinosaurioRepository.save(dinosaurio);
+
+        // Asignar el dinosaurio a la isla y guardar la isla con la lista de dinosaurios
+        islaTerrestre.getDinosaurios().add(dinosaurio);
+        return islaTerrestreRepository.save(islaTerrestre);
+    }
+
+    public Flux<Dinosaurio> flujoDinosaurios() {
+        return Flux.fromIterable(islaTerrestreRepository.findAll())
+                .flatMapIterable(IslaTerrestre::getDinosaurios);
+    }
+}
+

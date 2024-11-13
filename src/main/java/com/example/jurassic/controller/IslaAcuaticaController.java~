@@ -1,0 +1,28 @@
+package com.example.jurassic.controller;
+
+
+import com.example.jurassic.entity.Dinosaurio;
+import com.example.jurassic.entity.IslaAcuatica;
+import com.example.jurassic.service.IslaAcuaticaService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+
+@RestController
+@RequestMapping("/islaAcuatica")
+public class IslaAcuaticaController {
+
+    private final IslaAcuaticaService islaAcuaticaService;
+
+    public IslaAcuaticaController(IslaAcuaticaService islaAcuaticaService) {
+        this.islaAcuaticaService = islaAcuaticaService;
+    }
+
+    @GetMapping("/todos")
+    public Flux<IslaAcuatica> obtenerTodosAcuaticos() {
+        return islaAcuaticaService.obtenerTodos();
+    }
+
+
+
+}

@@ -47,13 +47,13 @@ public class DinosaurioService {
     @Transactional
     public void distribuirDinosaurio(Dinosaurio dinosaurio) {
         switch (dinosaurio.getTipoHabitat()) {
-            case "VOLADOR":
+            case "volador":
                 islaVoladoraService.agregarDinosaurio(dinosaurio);
                 break;
-            case "TERRESTRE":
+            case "terrestre":
                 islaTerrestreService.agregarDinosaurio(dinosaurio);
                 break;
-            case "ACUATICO":
+            case "acuatico":
                 islaAcuaticaService.agregarDinosaurio(dinosaurio);
                 break;
             default:

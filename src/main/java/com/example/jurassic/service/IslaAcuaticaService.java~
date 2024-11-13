@@ -1,0 +1,32 @@
+package com.example.jurassic.service;
+
+import com.example.jurassic.entity.Dinosaurio;
+import com.example.jurassic.entity.IslaAcuatica;
+import com.example.jurassic.repository.IslaAcuaticaRepository;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+
+
+@Service
+public class IslaAcuaticaService {
+
+    private final IslaAcuaticaRepository islaAcuaticaRepository;
+
+    public IslaAcuaticaService(IslaAcuaticaRepository islaAcuaticaRepository) {
+        this.islaAcuaticaRepository = islaAcuaticaRepository;
+    }
+
+    public static IslaAcuatica agregarDinosaurio(IslaAcuatica islaAcuatica, Dinosaurio dinosaurio) {
+        islaAcuatica.getDinosaurios().add(dinosaurio);
+        return islaAcuaticaRepository.save(islaAcuatica);
+    }
+
+    public Flux<Dinosaurio> flujoDinosaurios() {
+        return Flux.fromIterable(islaAcuaticaRepository.findAll())
+                .flatMapIterable(IslaAcuatica::getDinosaurios);
+    }
+
+
+
+
+}

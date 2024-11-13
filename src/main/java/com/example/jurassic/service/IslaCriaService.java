@@ -7,6 +7,7 @@ import com.example.jurassic.repository.HuevoRepository;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -18,6 +19,9 @@ import java.util.Random;
 
 @Service
 public class IslaCriaService {
+
+    @Autowired
+    private DinosaurioService dinosaurioService;
 
     private static final Logger logger = LoggerFactory.getLogger(IslaCriaService.class);
     private final HuevoRepository huevoRepository;
@@ -79,6 +83,7 @@ public class IslaCriaService {
             // Crea un dinosaurio basado en los atributos del huevo
             Dinosaurio dinosaurio = new Dinosaurio(huevo.getDieta(), huevo.getTipoHabitat());
             dinosaurioRepository.save(dinosaurio);
+            dinosaurioService.distribuirDinosaurio(dinosaurio);
             logger.info("Huevo eclosionado y dinosaurio generado: {}", dinosaurio);
             huevoRepository.delete(huevo); // Elimina el huevo después de la eclosión
             return dinosaurio;

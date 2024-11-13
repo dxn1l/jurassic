@@ -1,0 +1,4 @@
+package com.example.jurassic.repository;
+
+public interface IslaVoladoraRepository {
+}

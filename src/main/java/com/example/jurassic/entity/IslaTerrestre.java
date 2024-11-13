@@ -1,58 +1,56 @@
 package com.example.jurassic.entity;
 
-import com.example.jurassic.service.DinosaurioService;
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-public class Dinosaurio {
-
+public class IslaTerrestre {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String dieta; // Herbívoro o Carnívoro
-    private String tipoHabitat; // Terrestre, Acuático o Volador
+    private String dieta;
+    private String tipoHabitat;
     private LocalDateTime fechaEclosion;
-    private int edad; // Edad inicial, que puede empezar en 0
+    private int edad;
 
-    // Constructor con parámetros
-    public Dinosaurio(String dieta, String tipoHabitat) {
+    public IslaTerrestre(Long id, String dieta, String tipoHabitat, LocalDateTime fechaEclosion, int edad) {
+        this.id = id;
         this.dieta = dieta;
         this.tipoHabitat = tipoHabitat;
-        this.fechaEclosion = LocalDateTime.now();
-        this.edad = 0;
+        this.fechaEclosion = fechaEclosion;
+        this.edad = edad;
+
     }
 
+    public IslaTerrestre() {
 
-    // Constructor vacío para JPA
-    public Dinosaurio() {
     }
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+
     }
-    
 
     public String getDieta() {
         return dieta;
     }
 
-    public void setDieta(String tipo) {
-        this.dieta = tipo;
+    public void setDieta(String dieta) {
+        this.dieta = dieta;
     }
+
     public String getTipoHabitat() {
         return tipoHabitat;
     }
 
     public void setTipoHabitat(String tipoHabitat) {
-        this.dieta = tipoHabitat;
+        this.tipoHabitat = tipoHabitat;
     }
 
     public LocalDateTime getFechaEclosion() {
@@ -71,12 +69,14 @@ public class Dinosaurio {
         this.edad = edad;
     }
 
+
+
     @Override
     public String toString() {
-        return "Dinosaurio{" +
+        return "IslaTerrestre{" +
                 "id=" + id +
                 ", dieta='" + dieta + '\'' +
-                ", tipoHabitad='" + tipoHabitat + '\'' +
+                ", tipoHabitat='" + tipoHabitat + '\'' +
                 ", fechaEclosion=" + fechaEclosion +
                 ", edad=" + edad +
                 '}';

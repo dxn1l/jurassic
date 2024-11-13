@@ -16,3 +16,18 @@ services:
     networks:
       - jurassic_network
 
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: Jurassic_rabbitmq
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    networks:
+      - jurassic_network
+
+volumes:
+  mysql_data:
+
+networks:
+  jurassic_network:
+    driver: bridge
