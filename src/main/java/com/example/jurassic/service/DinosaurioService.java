@@ -1,10 +1,12 @@
 package com.example.jurassic.service;
 
+import com.example.jurassic.Config.RabbitMQConfig;
 import com.example.jurassic.entity.Dinosaurio;
 import com.example.jurassic.repository.DinosaurioRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,9 @@ public class DinosaurioService {
 
     @Autowired
     private IslaAcuaticaService islaAcuaticaService;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     private static final Logger logger = LoggerFactory.getLogger(IslaCriaService.class);
 
@@ -50,18 +55,16 @@ public class DinosaurioService {
 
     @Transactional
     public void distribuirDinosaurio(Dinosaurio dinosaurio) {
+        String mensaje;
         switch (dinosaurio.getTipoHabitat()) {
             case "VOLADOR":
                 islaVoladoraService.agregarDinosaurio(dinosaurio);
-                logger.info("Dinosaurio {} con tipo {} distribuido en isla voladora", dinosaurio.getId() , dinosaurio.getTipoHabitat());
                 break;
             case "TERRESTRE":
                 islaTerrestreService.agregarDinosaurio(dinosaurio);
-                logger.info("Dinosaurio {} con tipo {} distribuido en isla terrestre", dinosaurio.getId() , dinosaurio.getTipoHabitat());
                 break;
             case "ACUATICO":
                 islaAcuaticaService.agregarDinosaurio(dinosaurio);
-                logger.info("Dinosaurio {} con tipo {} distribuido en isla acuática", dinosaurio.getId() , dinosaurio.getTipoHabitat());
                 break;
             default:
                 throw new IllegalArgumentException("Tipo de habitat desconocido: " + dinosaurio.getTipoHabitat());
