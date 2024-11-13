@@ -3,6 +3,8 @@ package com.example.jurassic.service;
 import com.example.jurassic.entity.Dinosaurio;
 import com.example.jurassic.repository.DinosaurioRepository;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,8 @@ public class DinosaurioService {
 
     @Autowired
     private IslaAcuaticaService islaAcuaticaService;
+
+    private static final Logger logger = LoggerFactory.getLogger(IslaCriaService.class);
 
     public DinosaurioService(DinosaurioRepository dinosaurioRepository) {
         this.dinosaurioRepository = dinosaurioRepository;
@@ -47,14 +51,17 @@ public class DinosaurioService {
     @Transactional
     public void distribuirDinosaurio(Dinosaurio dinosaurio) {
         switch (dinosaurio.getTipoHabitat()) {
-            case "volador":
+            case "VOLADOR":
                 islaVoladoraService.agregarDinosaurio(dinosaurio);
+                logger.info("Dinosaurio {} distribuido en isla voladora", dinosaurio.getId());
                 break;
-            case "terrestre":
+            case "TERRESTRE":
                 islaTerrestreService.agregarDinosaurio(dinosaurio);
+                logger.info("Dinosaurio {} distribuido en isla terrestre", dinosaurio.getId());
                 break;
-            case "acuatico":
+            case "ACUATICO":
                 islaAcuaticaService.agregarDinosaurio(dinosaurio);
+                logger.info("Dinosaurio {} distribuido en isla acuática", dinosaurio.getId());
                 break;
             default:
                 throw new IllegalArgumentException("Tipo de habitat desconocido: " + dinosaurio.getTipoHabitat());
