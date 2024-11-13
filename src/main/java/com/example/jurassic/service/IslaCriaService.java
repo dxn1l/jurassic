@@ -1,6 +1,8 @@
 package com.example.jurassic.service;
 
+import com.example.jurassic.entity.Dinosaurio;
 import com.example.jurassic.entity.Huevo;
+import com.example.jurassic.repository.DinosaurioRepository;
 import com.example.jurassic.repository.HuevoRepository;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -19,21 +21,24 @@ public class IslaCriaService {
 
     private static final Logger logger = LoggerFactory.getLogger(IslaCriaService.class);
     private final HuevoRepository huevoRepository;
+    private final DinosaurioRepository dinosaurioRepository;
 
-    public IslaCriaService(HuevoRepository huevoRepository) {
+    public IslaCriaService(HuevoRepository huevoRepository, DinosaurioRepository dinosaurioRepository) {
         this.huevoRepository = huevoRepository;
+        this.dinosaurioRepository = dinosaurioRepository;
     }
-
-    // Método que inicia el flujo de generación de huevos
-    public Flux<Huevo> flujoGeneracionHuevos() {
-        return Flux.interval(Duration.ofSeconds(5))  // Genera un huevo cada 5 segundos
-                .flatMap(tick -> crearYGuardarHuevo())
-                .subscribeOn(Schedulers.boundedElastic()); // Ejecuta en un hilo compatible con tareas bloqueantes
-    }
-
+*
     @PostConstruct
     public void iniciarGeneracionDeHuevos() {
         flujoGeneracionHuevos().subscribe();
+    }
+
+    // Flujo de generación de huevos cada 5 segundos
+    public Flux<Huevo> flujoGeneracionHuevos() {
+        return Flux.interval(Duration.ofSeconds(5))
+                .flatMap(tick -> crearYGuardarHuevo())
+                .subscribeOn(Schedulers.boundedElastic())
+                .doOnNext(this::iniciarProcesoDeEclosion); // Inicia el proceso de eclosión para cada huevo
     }
 
     private Mono<Huevo> crearYGuardarHuevo() {
@@ -41,7 +46,7 @@ public class IslaCriaService {
                     Huevo huevo = new Huevo();
                     huevo.setTipo(generarTipoAleatorio());
                     huevo.setFechaCreacion(LocalDateTime.now());
-                    return huevoRepository.save(huevo); // Guardado síncrono en la base de datos
+                    return huevoRepository.save(huevo);
                 })
                 .doOnNext(savedHuevo -> logger.info("Huevo generado y guardado: {}", savedHuevo))
                 .subscribeOn(Schedulers.boundedElastic());
@@ -50,5 +55,24 @@ public class IslaCriaService {
     private String generarTipoAleatorio() {
         String[] tipos = {"CARNIVORO", "HERBIVORO", "ACUATICO"};
         return tipos[new Random().nextInt(tipos.length)];
+    }
+
+    // Método que inicia el proceso de eclosión después de un intervalo de tiempo
+    private void iniciarProcesoDeEclosion(Huevo huevo) {
+        Mono.delay(Duration.ofSeconds(30)) // Simula el tiempo de eclosión
+                .flatMap(tick -> eclosionarHuevo(huevo))
+                .subscribeOn(Schedulers.boundedElastic())
+                .subscribe();
+    }
+
+    // Convierte el huevo en un dinosaurio y lo guarda en la base de datos
+    private Mono<Dinosaurio> eclosionarHuevo(Huevo huevo) {
+        return Mono.fromCallable(() -> {
+            Dinosaurio dinosaurio = new Dinosaurio(huevo.getTipo());
+            dinosaurioRepository.save(dinosaurio);
+            logger.info("Huevo eclosionado y dinosaurio generado: {}", dinosaurio);
+            huevoRepository.delete(huevo); // Opcional: elimina el huevo después de la eclosión
+            return dinosaurio;
+        }).subscribeOn(Schedulers.boundedElastic());
     }
 }
