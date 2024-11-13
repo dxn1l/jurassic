@@ -13,13 +13,15 @@ public class Dinosaurio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String tipo; // Puede ser CARNIVORO, HERBIVORO, ACUATICO
+    private String dieta; // Herbívoro o Carnívoro
+    private String tipoHabitat; // Terrestre, Acuático o Volador
     private LocalDateTime fechaEclosion;
     private int edad; // Edad inicial, que puede empezar en 0
 
     // Constructor con parámetros
-    public Dinosaurio(String tipo) {
-        this.tipo = tipo;
+    public Dinosaurio(String dieta, String tipoHabitat) {
+        this.dieta = dieta;
+        this.tipoHabitat = tipoHabitat;
         this.fechaEclosion = LocalDateTime.now();
         this.edad = 0;
     }
@@ -37,12 +39,19 @@ public class Dinosaurio {
         this.id = id;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getDieta() {
+        return dieta;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setDieta(String tipo) {
+        this.dieta = tipo;
+    }
+    public String getTipoHabitat() {
+        return tipoHabitat;
+    }
+
+    public void setTipoHabitat(String tipoHabitat) {
+        this.dieta = tipoHabitat;
     }
 
     public LocalDateTime getFechaEclosion() {
@@ -65,7 +74,8 @@ public class Dinosaurio {
     public String toString() {
         return "Dinosaurio{" +
                 "id=" + id +
-                ", tipo='" + tipo + '\'' +
+                ", dieta='" + dieta + '\'' +
+                ", tipoHabitad='" + tipoHabitat + '\'' +
                 ", fechaEclosion=" + fechaEclosion +
                 ", edad=" + edad +
                 '}';

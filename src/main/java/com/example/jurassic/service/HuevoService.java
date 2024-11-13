@@ -19,12 +19,17 @@ public class HuevoService {
         return huevoRepository.findAll();
     }
 
-    public List<Huevo> obtenerHuevosPorTipo(String tipo) {
-        return huevoRepository.findByTipo(tipo);
+    // Obtener huevos por tipo de hábitat (terrestre, acuático, volador)
+    public List<Huevo> obtenerHuevosPorTipoHabitat(String tipoHabitat) {
+        return huevoRepository.findByTipoHabitat(tipoHabitat);
+    }
+
+    // Obtener huevos por dieta (herbívoro, carnívoro)
+    public List<Huevo> obtenerHuevosPorDieta(String dieta) {
+        return huevoRepository.findByDieta(dieta);
     }
 
     public Huevo obtenerHuevoPorId(Long id) {
         return huevoRepository.findById(id).orElse(null);
     }
 }
-

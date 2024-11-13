@@ -27,7 +27,7 @@ public class IslaCriaService {
         this.huevoRepository = huevoRepository;
         this.dinosaurioRepository = dinosaurioRepository;
     }
-*
+
     @PostConstruct
     public void iniciarGeneracionDeHuevos() {
         flujoGeneracionHuevos().subscribe();
@@ -43,8 +43,12 @@ public class IslaCriaService {
 
     private Mono<Huevo> crearYGuardarHuevo() {
         return Mono.fromCallable(() -> {
-                    Huevo huevo = new Huevo();
-                    huevo.setTipo(generarTipoAleatorio());
+                    // Generar dieta y tipo de hábitat aleatorios
+                    String dieta = generarDietaAleatoria(); // HERBIVORO o CARNIVORO
+                    String tipoHabitat = generarTipoHabitatAleatorio(); // TERRESTRE, ACUATICO o VOLADOR
+
+                    // Crear el huevo con los valores generados
+                    Huevo huevo = new Huevo(dieta, tipoHabitat);
                     huevo.setFechaCreacion(LocalDateTime.now());
                     return huevoRepository.save(huevo);
                 })
@@ -52,8 +56,12 @@ public class IslaCriaService {
                 .subscribeOn(Schedulers.boundedElastic());
     }
 
-    private String generarTipoAleatorio() {
-        String[] tipos = {"CARNIVORO", "HERBIVORO", "ACUATICO"};
+    private String generarDietaAleatoria() {
+        return new Random().nextBoolean() ? "HERBIVORO" : "CARNIVORO";
+    }
+
+    private String generarTipoHabitatAleatorio() {
+        String[] tipos = {"TERRESTRE", "ACUATICO", "VOLADOR"};
         return tipos[new Random().nextInt(tipos.length)];
     }
 
@@ -68,10 +76,11 @@ public class IslaCriaService {
     // Convierte el huevo en un dinosaurio y lo guarda en la base de datos
     private Mono<Dinosaurio> eclosionarHuevo(Huevo huevo) {
         return Mono.fromCallable(() -> {
-            Dinosaurio dinosaurio = new Dinosaurio(huevo.getTipo());
+            // Crea un dinosaurio basado en los atributos del huevo
+            Dinosaurio dinosaurio = new Dinosaurio(huevo.getDieta(), huevo.getTipoHabitat());
             dinosaurioRepository.save(dinosaurio);
             logger.info("Huevo eclosionado y dinosaurio generado: {}", dinosaurio);
-            huevoRepository.delete(huevo); // Opcional: elimina el huevo después de la eclosión
+            huevoRepository.delete(huevo); // Elimina el huevo después de la eclosión
             return dinosaurio;
         }).subscribeOn(Schedulers.boundedElastic());
     }

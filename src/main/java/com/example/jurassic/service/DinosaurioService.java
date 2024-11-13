@@ -19,12 +19,17 @@ public class DinosaurioService {
         return dinosaurioRepository.findAll();
     }
 
-    public List<Dinosaurio> obtenerDinosauriosPorTipo(String tipo) {
-        return dinosaurioRepository.findByTipo(tipo);
+    // Obtener dinosaurios por tipo de hábitat (terrestre, acuático, volador)
+    public List<Dinosaurio> obtenerDinosauriosPorTipoHabitat(String tipoHabitat) {
+        return dinosaurioRepository.findByTipoHabitat(tipoHabitat);
+    }
+
+    // Obtener dinosaurios por dieta (herbívoro, carnívoro)
+    public List<Dinosaurio> obtenerDinosauriosPorDieta(String dieta) {
+        return dinosaurioRepository.findByDieta(dieta);
     }
 
     public Dinosaurio obtenerDinosaurioPorId(Long id) {
         return dinosaurioRepository.findById(id).orElse(null);
     }
 }
-

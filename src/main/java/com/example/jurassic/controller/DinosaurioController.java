@@ -22,10 +22,16 @@ public class DinosaurioController {
         return dinosaurioService.obtenerTodosDinosaurios();
     }
 
-    // Obtener dinosaurios por tipo (carnívoros, herbívoros, acuáticos)
-    @GetMapping("/tipo/{tipo}")
-    public List<Dinosaurio> obtenerDinosauriosPorTipo(@PathVariable String tipo) {
-        return dinosaurioService.obtenerDinosauriosPorTipo(tipo);
+    // Obtener dinosaurios por tipo de hábitat (terrestre, acuático, volador)
+    @GetMapping("/habitat/{tipoHabitat}")
+    public List<Dinosaurio> obtenerDinosauriosPorTipoHabitat(@PathVariable String tipoHabitat) {
+        return dinosaurioService.obtenerDinosauriosPorTipoHabitat(tipoHabitat);
+    }
+
+    // Obtener dinosaurios por dieta (herbívoro, carnívoro)
+    @GetMapping("/dieta/{dieta}")
+    public List<Dinosaurio> obtenerDinosauriosPorDieta(@PathVariable String dieta) {
+        return dinosaurioService.obtenerDinosauriosPorDieta(dieta);
     }
 
     // Obtener detalles de un dinosaurio específico

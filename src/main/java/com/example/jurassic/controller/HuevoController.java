@@ -19,7 +19,6 @@ public class HuevoController {
     private final IslaCriaService islaCriaService;
     private final HuevoService huevoService;
 
-
     public HuevoController(IslaCriaService islaCriaService, HuevoService huevoService) {
         this.islaCriaService = islaCriaService;
         this.huevoService = huevoService;
@@ -31,10 +30,16 @@ public class HuevoController {
         return huevoService.obtenerTodosHuevos();
     }
 
-    // Obtener huevos por tipo (carnívoro, herbívoro, acuático)
-    @GetMapping("/tipo/{tipo}")
-    public List<Huevo> obtenerHuevosPorTipo(@PathVariable String tipo) {
-        return huevoService.obtenerHuevosPorTipo(tipo);
+    // Obtener huevos por tipo de hábitat (terrestre, acuático, volador)
+    @GetMapping("/habitat/{tipoHabitat}")
+    public List<Huevo> obtenerHuevosPorTipoHabitat(@PathVariable String tipoHabitat) {
+        return huevoService.obtenerHuevosPorTipoHabitat(tipoHabitat);
+    }
+
+    // Obtener huevos por dieta (herbívoro, carnívoro)
+    @GetMapping("/dieta/{dieta}")
+    public List<Huevo> obtenerHuevosPorDieta(@PathVariable String dieta) {
+        return huevoService.obtenerHuevosPorDieta(dieta);
     }
 
     // Obtener detalles de un huevo específico
