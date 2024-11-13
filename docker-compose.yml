@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: jurassic_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: jurassic_database
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    ports:
+      - "3310:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - jurassic_network
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: Jurassic_rabbitmq
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    networks:
+      - jurassic_network
+
+volumes:
+  mysql_data:
+
+networks:
+  jurassic_network:
+    driver: bridge
