@@ -27,7 +27,7 @@ public class DinosaurioScheduler {
     @Autowired
     private IslaVoladoraService islaVoladoraService;
 
-    @Scheduled(fixedRate = *) // Cada 10 segundos
+    @Scheduled(fixedRate = 10000) // Cada 10 segundos
     public void actualizarEdadDinosauriosEIslas() {
         List<Dinosaurio> dinosaurios = dinosaurioService.obtenerTodosDinosaurios();
 
