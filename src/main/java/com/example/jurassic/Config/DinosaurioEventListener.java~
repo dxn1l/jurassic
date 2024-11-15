@@ -88,11 +88,6 @@ public class DinosaurioEventListener {
         logger.info("Evento de falta de dinosaurios: {}", mensaje);
     }
 
-    @RabbitListener(queues = RabbitMQConfig.HUEVO_REPRODUCCION_QUEUE)
-    public void onHuevoReproduccion(String mensaje) {
-        logger.info("Evento de creación de huevo por reproducción: {}", mensaje);
-    }
-
 }
 
 

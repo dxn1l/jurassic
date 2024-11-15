@@ -61,23 +61,31 @@ public class IslaTerrestreService {
         // Obtener todos los dinosaurios de la isla terrestre
         List<Dinosaurio> dinosaurios = dinosaurioService.obtenerDinosauriosPorTipoHabitat("TERRESTRE");
 
-        // Filtrar dinosaurios con la misma dieta
-        if (dinosaurios.size() >= 2) {
-            Dinosaurio dino1 = dinosaurios.get(ThreadLocalRandom.current().nextInt(dinosaurios.size()));
-            Dinosaurio dino2 = dinosaurios.stream()
-                    .filter(d -> !d.getId().equals(dino1.getId()) && d.getDieta().equals(dino1.getDieta()))
-                    .findFirst()
-                    .orElse(null);
+        if (dinosaurios.size() < 2) {
+            dinosaurioService.enviarMensajeSinSuficientesDinos("TERRESTRE");
+            return;
+        }
 
-            if (dino2 != null) {
-                // Log de reproducción
-                System.out.println("Dinosaurio con ID " + dino1.getId() + " se ha reproducido con dinosaurio con ID " + dino2.getId());
+            Dinosaurio dino1= dinosaurios.get(ThreadLocalRandom.current().nextInt(dinosaurios.size()));
+            Dinosaurio dino2;
+         do {
+            dino2 = dinosaurios.get(ThreadLocalRandom.current().nextInt(dinosaurios.size()));
+        } while (dino1.getId().equals(dino2.getId()));
+
+
+        if (dino1.getDieta().equals(dino2.getDieta())) {
+                dinosaurioService.enviarMensajeReproduccionExitosa(dino1, dino2);
 
                 // Crear y guardar un nuevo huevo
                 Huevo huevo = new Huevo(dino1.getDieta(), dino1.getTipoHabitat());
                 huevoService.guardarHuevo(huevo);
+
+            }else {
+
+                dinosaurioService.enviarMensajeReproduccionFallida(dino1, dino2);
+
             }
-        }
+
     }
 
 

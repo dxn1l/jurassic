@@ -49,8 +49,8 @@ public class HuevoService {
     }
 
     private void enviarMensajeHuevoReproduccion(Huevo huevo) {
-        String mensaje = "Huevo con ID=" + huevo.getId() + " ha sido creado por reproducción y ha heredado la dieta=" + huevo.getDieta() +
-                " y hábitat=" + huevo.getTipoHabitat() + " de sus padres.";
+        String mensaje = "Huevo con ID=" + huevo.getId() + " ha sido creado por reproducción y ha heredadod la dieta=" + huevo.getDieta() +
+                "y hábitat=" + huevo.getTipoHabitat() + " de sus padres.";
         rabbitTemplate.convertAndSend(RabbitMQConfig.HUEVO_REPRODUCCION_QUEUE, mensaje);
     }
 
