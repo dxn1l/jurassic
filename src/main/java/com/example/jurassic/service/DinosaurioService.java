@@ -78,7 +78,7 @@ public class DinosaurioService {
      */
     public void guardarDinosaurio(Dinosaurio dinosaurio) {
         dinosaurioRepository.save(dinosaurio);
-        logger.info("Dinosaurio con ID: {} actualizado en la base de datos", dinosaurio.getId());
+        //logger.info("Dinosaurio con ID: {} actualizado en la base de datos", dinosaurio.getId());
     }
 
     /**
@@ -87,7 +87,7 @@ public class DinosaurioService {
      */
     public void eliminarDinosaurio(Dinosaurio dinosaurio) {
         dinosaurioRepository.delete(dinosaurio);
-        logger.info("Dinosaurio con ID: {} eliminado de la base de datos", dinosaurio.getId());
+        //logger.info("Dinosaurio con ID: {} eliminado de la base de datos", dinosaurio.getId());
     }
 
     /**
@@ -95,9 +95,8 @@ public class DinosaurioService {
      * @param dinosaurio Dinosaurio que ha muerto.
      */
     public void enviarMensajeMuerte(Dinosaurio dinosaurio) {
-        String mensaje = "Dinosaurio con ID: " + dinosaurio.getId() + " ha muerto a la edad de: " + dinosaurio.getEdad();
+        String mensaje = "Dinosaurio con ID: " + dinosaurio.getId() + " ha muerto de vejez a la edad de: " + dinosaurio.getEdad();
         rabbitTemplate.convertAndSend(RabbitMQConfig.DINO_MUERTE_QUEUE, mensaje);
-        logger.info("Mensaje de muerte enviado a RabbitMQ para el dinosaurio con ID: {}", dinosaurio.getId());
     }
 
 }
