@@ -15,7 +15,6 @@ public class RabbitMQConfig {
     public static final String REPRODUCCION_EXITOSA_QUEUE = "reproduccionExitosaQueue";
     public static final String REPRODUCCION_FALLIDA_QUEUE = "reproduccionFallidaQueue";
     public static final String SIN_SUFICIENTES_DINOS_QUEUE = "sinSuficientesDinosQueue";
-    public static final String HUEVO_REPRODUCCION_QUEUE = "huevoReproduccionQueue";
 
 
 

@@ -114,16 +114,16 @@ public class DinosaurioService {
     }
 
     public void enviarMensajeReproduccionFallida(Dinosaurio dino1, Dinosaurio dino2) {
-        String mensaje = "Dinosaurio con ID:" + dino1.getId() + " y DIETA:" + dino1.getDieta() +
-                " y Dinosaurio con ID:" + dino2.getId() + " y DIETA:" + dino2.getDieta() +
-                " no pudieron reproducirse debido a dietas diferentes en la isla " + dino1.getTipoHabitat();
+        String mensaje = " Dinosaurio con ID " + dino1.getId() +
+                " y Dinosaurio con ID " + dino2.getId() +
+                " no pudieron reproducirse debido a dietas diferentes.";
         rabbitTemplate.convertAndSend(RabbitMQConfig.REPRODUCCION_FALLIDA_QUEUE, mensaje);
 
     }
 
     public void enviarMensajeSinSuficientesDinos(String tipoHabitat) {
         String mensaje = "No se pudo iniciar el proceso de reproducción en la isla " + tipoHabitat +
-                " debido a la falta de dinosaurios.";
+                " debido a la falta de suficientes dinosaurios.";
         rabbitTemplate.convertAndSend(RabbitMQConfig.SIN_SUFICIENTES_DINOS_QUEUE, mensaje);
 
     }
