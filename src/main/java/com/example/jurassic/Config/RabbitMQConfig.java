@@ -11,6 +11,8 @@ public class RabbitMQConfig {
 
     public static final String HUEVO_CREACION_QUEUE = "huevoCreacionQueue";
     public static final String HUEVO_ECLOSION_QUEUE = "huevoEclosionQueue";
+    public static final String DINO_MUERTE_QUEUE = "dinoMuerteQueue";
+
 
 
     @Bean
@@ -21,6 +23,11 @@ public class RabbitMQConfig {
     @Bean
     public Queue huevoEclosionQueue() {
         return new Queue(HUEVO_ECLOSION_QUEUE, false);
+    }
+
+    @Bean
+    public Queue dinoMuerteQueue() {
+        return new Queue(DINO_MUERTE_QUEUE, false);
     }
 
 }

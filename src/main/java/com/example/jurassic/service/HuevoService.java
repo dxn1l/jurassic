@@ -2,6 +2,7 @@ package com.example.jurassic.service;
 
 import com.example.jurassic.entity.*;
 import com.example.jurassic.repository.HuevoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @Service
 public class HuevoService {
 
+    @Autowired
     private final HuevoRepository huevoRepository;
 
     public HuevoService(HuevoRepository huevoRepository) {
@@ -31,6 +33,11 @@ public class HuevoService {
 
     public Huevo obtenerHuevoPorId(Long id) {
         return huevoRepository.findById(id).orElse(null);
+    }
+
+    public void guardarHuevo(Huevo huevo) {
+        huevoRepository.save(huevo);
+        System.out.println("Huevo creado por reproduccion y guardado con dieta " + huevo.getDieta() + " y hábitat " + huevo.getTipoHabitat());
     }
 
 }

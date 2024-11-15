@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,12 +19,18 @@ public class DinosaurioService {
     private final DinosaurioRepository dinosaurioRepository;
 
     @Autowired
+    @Lazy
+
     private IslaVoladoraService islaVoladoraService;
 
     @Autowired
+    @Lazy
+
     private IslaTerrestreService islaTerrestreService;
 
     @Autowired
+    @Lazy
+
     private IslaAcuaticaService islaAcuaticaService;
 
     @Autowired
@@ -69,6 +76,34 @@ public class DinosaurioService {
             default:
                 throw new IllegalArgumentException("Tipo de habitat desconocido: " + dinosaurio.getTipoHabitat());
         }
+    }
+
+
+    /**
+     * Guarda un dinosaurio en la base de datos.
+     * @param dinosaurio Dinosaurio a guardar.
+     */
+    public void guardarDinosaurio(Dinosaurio dinosaurio) {
+        dinosaurioRepository.save(dinosaurio);
+        //logger.info("Dinosaurio con ID: {} actualizado en la base de datos", dinosaurio.getId());
+    }
+
+    /**
+     * Elimina un dinosaurio de la base de datos.
+     * @param dinosaurio Dinosaurio a eliminar.
+     */
+    public void eliminarDinosaurio(Dinosaurio dinosaurio) {
+        dinosaurioRepository.delete(dinosaurio);
+        //logger.info("Dinosaurio con ID: {} eliminado de la base de datos", dinosaurio.getId());
+    }
+
+    /**
+     * Envía un mensaje a RabbitMQ indicando que un dinosaurio ha muerto.
+     * @param dinosaurio Dinosaurio que ha muerto.
+     */
+    public void enviarMensajeMuerte(Dinosaurio dinosaurio) {
+        String mensaje = "Dinosaurio con ID: " + dinosaurio.getId() + " ha muerto de vejez a la edad de: " + dinosaurio.getEdad();
+        rabbitTemplate.convertAndSend(RabbitMQConfig.DINO_MUERTE_QUEUE, mensaje);
     }
 
 }
