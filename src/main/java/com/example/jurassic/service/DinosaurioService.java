@@ -71,4 +71,33 @@ public class DinosaurioService {
         }
     }
 
+
+    /**
+     * Guarda un dinosaurio en la base de datos.
+     * @param dinosaurio Dinosaurio a guardar.
+     */
+    public void guardarDinosaurio(Dinosaurio dinosaurio) {
+        dinosaurioRepository.save(dinosaurio);
+        logger.info("Dinosaurio con ID: {} actualizado en la base de datos", dinosaurio.getId());
+    }
+
+    /**
+     * Elimina un dinosaurio de la base de datos.
+     * @param dinosaurio Dinosaurio a eliminar.
+     */
+    public void eliminarDinosaurio(Dinosaurio dinosaurio) {
+        dinosaurioRepository.delete(dinosaurio);
+        logger.info("Dinosaurio con ID: {} eliminado de la base de datos", dinosaurio.getId());
+    }
+
+    /**
+     * Envía un mensaje a RabbitMQ indicando que un dinosaurio ha muerto.
+     * @param dinosaurio Dinosaurio que ha muerto.
+     */
+    public void enviarMensajeMuerte(Dinosaurio dinosaurio) {
+        String mensaje = "Dinosaurio con ID: " + dinosaurio.getId() + " ha muerto a la edad de: " + dinosaurio.getEdad();
+        rabbitTemplate.convertAndSend(RabbitMQConfig.DINO_MUERTE_QUEUE, mensaje);
+        logger.info("Mensaje de muerte enviado a RabbitMQ para el dinosaurio con ID: {}", dinosaurio.getId());
+    }
+
 }

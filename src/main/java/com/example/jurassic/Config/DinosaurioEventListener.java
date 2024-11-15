@@ -66,6 +66,12 @@ public class DinosaurioEventListener {
         }
     }
 
+
+    @RabbitListener(queues = RabbitMQConfig.DINO_MUERTE_QUEUE)
+    public void onDinoMuerto(String mensaje) {
+        logger.info("Evento de muerte: {}", mensaje);
+    }
+
 }
 
 
