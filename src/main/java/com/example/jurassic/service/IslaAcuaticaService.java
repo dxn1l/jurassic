@@ -65,12 +65,13 @@ public class IslaAcuaticaService {
         }
 
             Dinosaurio dino1 = dinosaurios.get(ThreadLocalRandom.current().nextInt(dinosaurios.size()));
-            Dinosaurio dino2 = dinosaurios.stream()
-                    .filter(d -> !d.getId().equals(dino1.getId()) && d.getDieta().equals(dino1.getDieta()))
-                    .findFirst()
-                    .orElse(null);
+        Dinosaurio dino2;
+        do {
+            dino2 = dinosaurios.get(ThreadLocalRandom.current().nextInt(dinosaurios.size()));
+        } while (dino1.getId().equals(dino2.getId()));
 
-            if (dino2 != null) {
+
+        if (dino1.getDieta().equals(dino2.getDieta())) {
 
                 dinosaurioService.enviarMensajeReproduccionExitosa(dino1, dino2);
 
