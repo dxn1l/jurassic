@@ -1,6 +1,7 @@
 package com.example.jurassic.service;
 
 import com.example.jurassic.entity.Dinosaurio;
+import com.example.jurassic.entity.Huevo;
 import com.example.jurassic.entity.IslaTerrestre;
 import com.example.jurassic.repository.DinosaurioRepository;
 import com.example.jurassic.repository.IslaTerrestreRepository;
@@ -9,12 +10,19 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class IslaTerrestreService {
 
     @Autowired
     private IslaTerrestreRepository islaTerrestreRepository;
+
+    @Autowired
+    private HuevoService huevoService;
+
+    @Autowired
+    private DinosaurioService dinosaurioService;
 
     public Flux<IslaTerrestre> obtenerTodos() {
         return Flux.fromIterable(islaTerrestreRepository.findAll());
@@ -47,6 +55,32 @@ public class IslaTerrestreService {
             islaTerrestreRepository.delete(isla); // Aquí elimina la referencia en la isla
         }
     }
+
+    //reproduccion
+    public void reproducirDinosaurios() {
+        // Obtener todos los dinosaurios de la isla terrestre
+        List<Dinosaurio> dinosaurios = dinosaurioService.obtenerDinosauriosPorTipoHabitat("TERRESTRE");
+
+        // Filtrar dinosaurios con la misma dieta
+        if (dinosaurios.size() >= 2) {
+            Dinosaurio dino1 = dinosaurios.get(ThreadLocalRandom.current().nextInt(dinosaurios.size()));
+            Dinosaurio dino2 = dinosaurios.stream()
+                    .filter(d -> !d.getId().equals(dino1.getId()) && d.getDieta().equals(dino1.getDieta()))
+                    .findFirst()
+                    .orElse(null);
+
+            if (dino2 != null) {
+                // Log de reproducción
+                System.out.println("Dinosaurio con ID " + dino1.getId() + " se ha reproducido con dinosaurio con ID " + dino2.getId());
+
+                // Crear y guardar un nuevo huevo
+                Huevo huevo = new Huevo(dino1.getDieta(), dino1.getTipoHabitat());
+                huevoService.guardarHuevo(huevo);
+            }
+        }
+    }
+
+
 }
 
 
