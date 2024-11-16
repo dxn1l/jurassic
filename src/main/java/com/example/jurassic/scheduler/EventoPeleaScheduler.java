@@ -12,7 +12,7 @@ public class EventoPeleaScheduler {
     @Autowired
     private PeleaService peleaService;
 
-    @Scheduled(fixedRate = 30000) // Cada 30 segundos
+    @Scheduled(fixedRate = 10000) // Cada 30 segundos
     public void ejecutarEventoPelea() {
         peleaService.iniciarEventoPelea().subscribe();
     }
