@@ -120,13 +120,13 @@ public class DinosaurioEventListener {
 
     @RabbitListener(queues = RabbitMQConfig.VISITANTE_GENERADO_QUEUE)
     public void onVisitanteGenerado(String mensaje) {
-        logger.info("Evento de visitante generado: {} ", mensaje);
+        System.out.println("Evento de visitante generado: " + mensaje);
         // Procesa la información según sea necesario
     }
 
     @RabbitListener(queues = RabbitMQConfig.VISITANTE_DISTRIBUIDO_QUEUE)
     public void onVisitanteDistribuido(String mensaje) {
-        logger.info("Evento de visitante distribuido: {}" , mensaje);
+        System.out.println("Evento de visitante distribuido: " + mensaje);
         // Procesa la información según sea necesario
     }
 }
