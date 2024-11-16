@@ -1,9 +1,11 @@
 package com.example.jurassic.service;
 
+import com.example.jurassic.Config.RabbitMQConfig;
 import com.example.jurassic.entity.Visitante;
 import com.example.jurassic.repository.VisitanteRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -20,6 +22,10 @@ public class VisitanteService {
     @Autowired
     private VisitanteRepository visitanteRepository;
 
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+
     /**
      * Generar un flujo de visitantes.
      *
@@ -34,7 +40,10 @@ public class VisitanteService {
 
         visitanteRepository.saveAll(visitantes);
 
-        logger.info("{} visitantes han llegado al parque.", cantidad);
+        visitantes.forEach(visitante -> {
+            String mensaje = String.format("Visitante con ID:=%d ha llegado al parque", visitante.getId());
+            rabbitTemplate.convertAndSend(RabbitMQConfig.VISITANTE_GENERADO_QUEUE, mensaje);
+        });
 
         return Flux.fromIterable(visitantes); // Convertir la lista a un Flux
     }

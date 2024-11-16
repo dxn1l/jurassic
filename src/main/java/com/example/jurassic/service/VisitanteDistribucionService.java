@@ -1,8 +1,10 @@
 package com.example.jurassic.service;
 
+import com.example.jurassic.Config.RabbitMQConfig;
 import com.example.jurassic.entity.Visitante;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -17,6 +19,9 @@ public class VisitanteDistribucionService {
     @Autowired
     private VisitanteService visitanteService;
 
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
     /**
      * Distribuir visitantes de la entrada a las islas.
      *
@@ -29,7 +34,8 @@ public class VisitanteDistribucionService {
                     grupo.forEach(visitante -> {
                         String isla = seleccionarIslaAleatoria();
                         visitante.setIsla(isla); // Asignar la nueva isla al visitante
-                        logger.info("Visitante ID: {} asignado a la isla: {}", visitante.getId(), isla);
+                        String mensaje = String.format("Visitante con ID=:%d la decidido visitar la Isla:=%s", visitante.getId(), isla);
+                        rabbitTemplate.convertAndSend(RabbitMQConfig.VISITANTE_DISTRIBUIDO_QUEUE, mensaje);
                     });
 
                     // Guardar los visitantes actualizados en la base de datos
