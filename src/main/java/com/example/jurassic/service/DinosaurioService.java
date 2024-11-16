@@ -97,7 +97,6 @@ public class DinosaurioService {
      */
     public void guardarDinosaurio(Dinosaurio dinosaurio) {
         dinosaurioRepository.save(dinosaurio);
-        //logger.info("Dinosaurio con ID: {} actualizado en la base de datos", dinosaurio.getId());
     }
 
 
