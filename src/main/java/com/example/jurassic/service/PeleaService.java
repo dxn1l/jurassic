@@ -79,7 +79,6 @@ public class PeleaService {
                         return hospitalService.enviarDinosaurioAlHospital(perdedor)
                                 .doOnSuccess(h -> {
                                     eliminarDinosaurioDeIsla(perdedor); // Eliminar de la isla correspondiente
-                                    dinosaurioService.eliminarDinosaurio(perdedor); // Eliminar de la tabla general
                                     hospitalService.procesarDinosaurioEnHospital(perdedor).subscribe();
                                     System.out.println("El perdedor, Dinosaurio con ID " + perdedor.getId() + ", ha quedado HERIDO y enviado al hospital.");
                                 })
