@@ -1,0 +1,18 @@
+package com.example.jurassic.entity;
+
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Entity
+public class IslaVoladora {
+    @Id
+    private Long id;
+    private String dieta;
+    private String tipoHabitat;
+    private LocalDateTime fechaEclosion;
+    private int edad;
+
+    // Constructor, getters, setters
+}
