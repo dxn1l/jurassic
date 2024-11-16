@@ -8,18 +8,39 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f4f4f4;
+            background-image: url("https://cdn.businessinsider.es/sites/navi.axelspringer.es/public/media/image/2024/03/esqueleto-dinosaurio-3282864.jpg?tf=1200x");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
             margin: 0;
             padding: 20px;
         }
         h1 {
-            color: #2c3e50;
+            color: white;
         }
         .stat {
             margin: 20px;
             font-size: 24px;
-            color: #34495e;
+            color: white;
         }
+
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 16px;
+            color: white;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: gray;
+        }
+
+        
         .stat span {
             font-weight: bold;
             color: #e74c3c;
@@ -30,11 +51,17 @@
 <h1>Cementerio</h1>
 
 <div class="stat" id="totalDinosauriosMuertos">Cargando número total de dinosaurios muertos...</div>
-<div class="stat" id="dinosauriosCarnivoros">Cargando dinosaurios carnívoros muertos...</div>
-<div class="stat" id="dinosauriosHerbivoros">Cargando dinosaurios herbívoros muertos...</div>
+
 <div class="stat" id="dinosauriosTerrestres">Cargando dinosaurios terrestres muertos...</div>
 <div class="stat" id="dinosauriosAcuaticos">Cargando dinosaurios acuáticos muertos...</div>
 <div class="stat" id="dinosauriosVoladores">Cargando dinosaurios voladores muertos...</div>
+<h2>Por dieta:</h2>
+<div class="stat" id="dinosauriosCarnivoros">Cargando dinosaurios carnívoros muertos...</div>
+<div class="stat" id="dinosauriosHerbivoros">Cargando dinosaurios herbívoros muertos...</div>
+
+<div class="button-container">
+
+    <a href="index.html" class="button">Menu </a> </div>
 
 <script>
     function actualizarDatos() {

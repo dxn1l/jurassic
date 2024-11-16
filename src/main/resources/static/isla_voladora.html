@@ -8,27 +8,45 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f4f4f4;
+            background-image: url("https://dinosaurland.es/wp-content/uploads/elementor/thumbs/10-dinosaurios-voladores-dinosaurland-qw9fqbt4cf97smzoctp9yc5b5dk8adhrglk7z4553u.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center 0%;
             margin: 0;
             padding: 20px;
         }
         h1 {
-            color: #2c3e50;
+            color: white;
         }
         .stat {
             margin: 20px;
             font-size: 24px;
-            color: #34495e;
+            color: white;
         }
         .stat span {
             font-weight: bold;
             color: #e74c3c;
         }
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 16px;
+            color: white;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: gray;
+        }
         .message {
             margin-top: 30px;
             font-size: 18px;
             font-weight: bold;
-            color: #2c3e50;
+            color: red;
         }
     </style>
 </head>
@@ -43,6 +61,10 @@
     Revisar la consola para ver los eventos que suceden en la isla (llegadas a la isla de nuevos dinosaurios, reproducción de dinosaurios , muerte por vejez , y peleas entre dinosaurios que pueden resultar en muerte por lo que se transladará al cementario o puede resultar en heridas por lo que se transladara al hostital hasta que se recupere y pueda volver a la isla)
 </div>
 
+<div class="button-container">
+
+    <a href="index.html" class="button">Menu </a> </div>
+
 <script>
     // Función para obtener y mostrar el número total de dinosaurios
     function actualizarDatos() {
@@ -51,7 +73,7 @@
             .then(response => response.json())
             .then(data => {
                 document.getElementById('totalDinosaurios').innerHTML =
-                    `Número total de dinosaurios en la Isla Terrestre: <span>${data.length}</span>`;
+                    `Número total de dinosaurios en la Isla Voladora: <span>${data.length}</span>`;
             })
             .catch(error => {
                 console.error('Error al obtener los datos totales:', error);

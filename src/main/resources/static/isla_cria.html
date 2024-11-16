@@ -8,21 +8,47 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f4f4f4;
+            background-image: url("https://content.nationalgeographic.com.es/medio/2024/03/27/huevos-dinosaurio-modelo_5f98e4de_240327140101_1280x742.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center 10%;
             margin: 0;
             padding: 20px;
         }
         h1 {
-            color: #2c3e50;
+            color: white;
         }
         .stat {
             margin: 20px;
             font-size: 20px;
-            color: #34495e;
+            color: white;
         }
         .stat span {
             font-weight: bold;
             color: #e74c3c;
+        }
+
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 16px;
+            color: white;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: gray;
+        }
+
+        .message {
+            margin-top: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: red;
         }
     </style>
 </head>
@@ -33,12 +59,17 @@
 <div class="stat" id="huevosTerrestres">Cargando huevos terrestres...</div>
 <div class="stat" id="huevosAcuaticos">Cargando huevos acuáticos...</div>
 <div class="stat" id="huevosVoladores">Cargando huevos voladores...</div>
+<h2>Por dieta:  </h2>
 <div class="stat" id="huevosHerbivoros">Cargando huevos herbívoros...</div>
 <div class="stat" id="huevosCarnivoros">Cargando huevos carnívoros...</div>
 
 <div class="message">
     Revisar la consola para ver los eventos que suceden en la isla (generacion de huevos y eclosion de huevos)
 </div>
+
+<div class="button-container">
+
+    <a href="index.html" class="button">Menu </a> </div>
 
 <script>
     // Función para cargar y actualizar los datos
@@ -54,19 +85,19 @@
         fetch('/huevos/habitat/TERRESTRE')
             .then(response => response.json())
             .then(data => {
-                document.getElementById('huevosTerrestres').innerHTML = `Huevos en hábitat terrestre: <span>${data.length}</span>`;
+                document.getElementById('huevosTerrestres').innerHTML = `Huevos de hábitat terrestre: <span>${data.length}</span>`;
             });
 
         fetch('/huevos/habitat/ACUATICO')
             .then(response => response.json())
             .then(data => {
-                document.getElementById('huevosAcuaticos').innerHTML = `Huevos en hábitat acuático: <span>${data.length}</span>`;
+                document.getElementById('huevosAcuaticos').innerHTML = `Huevos de hábitat acuático: <span>${data.length}</span>`;
             });
 
         fetch('/huevos/habitat/VOLADOR')
             .then(response => response.json())
             .then(data => {
-                document.getElementById('huevosVoladores').innerHTML = `Huevos en hábitat volador: <span>${data.length}</span>`;
+                document.getElementById('huevosVoladores').innerHTML = `Huevos de hábitat volador: <span>${data.length}</span>`;
             });
 
         // Cargar número de huevos por dieta
