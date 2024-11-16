@@ -10,6 +10,7 @@ url = https://github.com/dxn1l/jurassic.git
   - Isla Terrestre.
   - Isla Acuática.
   - Isla Voladora.
+- **Muerte por vejez**: Los Dinosaurios moriran en un rango de 20 a 40 años y cuando mueran seran llevados al cementerio.
 - **Reproducción**: Los Dinosaurios de las islas intentan reproducirse, si son compatibles (misma dieta) se genera un nuevo huevo.
 - **Peleas**:
   - Los Dinosaurios de las islas pelean periódicamente.
