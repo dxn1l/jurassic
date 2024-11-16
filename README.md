@@ -21,6 +21,9 @@ url = https://github.com/dxn1l/jurassic.git
 - **Llegada**: Los visitantes van llegando al parque.
 - **Distribución**: Los visitantes se mueven por el parque y visitan las diferentes islas.
 
+### FrontEnd
+- ** En el frontend puedes consultar los datos de poblacion en tiempo real pero si quieres ver los eventos consulta la consola
+
 ## Recomendacion
 Para poder ver bien todos los eventos hay que dejar corriendo el programa un rato ya que los huevos tardan en eclosionar (30 segs) 
 
