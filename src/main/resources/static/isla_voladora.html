@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isla Voladora</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .stat {
+            margin: 20px;
+            font-size: 24px;
+            color: #34495e;
+        }
+        .stat span {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .message {
+            margin-top: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+<h1>Isla Voladora</h1>
+
+<div class="stat" id="totalDinosaurios">Cargando número total de dinosaurios...</div>
+<div class="stat" id="dinosauriosCarnivoros">Cargando dinosaurios carnívoros...</div>
+<div class="stat" id="dinosauriosHerbivoros">Cargando dinosaurios herbívoros...</div>
+
+<div class="message">
+    Revisar la consola para ver los eventos que suceden en la isla (llegadas a la isla de nuevos dinosaurios, reproducción de dinosaurios , muerte por vejez , y peleas entre dinosaurios que pueden resultar en muerte por lo que se transladará al cementario o puede resultar en heridas por lo que se transladara al hostital hasta que se recupere y pueda volver a la isla)
+</div>
+
+<script>
+    // Función para obtener y mostrar el número total de dinosaurios
+    function actualizarDatos() {
+        // Total de dinosaurios
+        fetch('/islavoladora/todos')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('totalDinosaurios').innerHTML =
+                    `Número total de dinosaurios en la Isla Terrestre: <span>${data.length}</span>`;
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos totales:', error);
+                document.getElementById('totalDinosaurios').innerHTML =
+                    `Error al cargar los datos. Intente nuevamente.`;
+            });
+
+        // Dinosaurios carnívoros
+        fetch('/islavoladora/dieta/CARNIVORO')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('dinosauriosCarnivoros').innerHTML =
+                    `Dinosaurios carnívoros: <span>${data.length}</span>`;
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos carnívoros:', error);
+                document.getElementById('dinosauriosCarnivoros').innerHTML =
+                    `Error al cargar los datos. Intente nuevamente.`;
+            });
+
+        // Dinosaurios herbívoros
+        fetch('/islavoladora/dieta/HERBIVORO')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('dinosauriosHerbivoros').innerHTML =
+                    `Dinosaurios herbívoros: <span>${data.length}</span>`;
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos herbívoros:', error);
+                document.getElementById('dinosauriosHerbivoros').innerHTML =
+                    `Error al cargar los datos. Intente nuevamente.`;
+            });
+    }
+
+    // Llamar a la función para obtener datos al cargar la página
+    actualizarDatos();
+
+    // Actualizar los datos cada 5 segundos
+    setInterval(actualizarDatos, 5000);
+</script>
+</body>
+</html>

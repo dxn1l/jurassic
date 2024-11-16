@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parque Jurásico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 16px;
+            color: white;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #2980b9;
+        }
+        .events-list {
+            margin-top: 40px;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .events-list h2 {
+            color: #2c3e50;
+            font-size: 20px;
+        }
+        .events-list ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+        .events-list li {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #34495e;
+        }
+    </style>
+</head>
+<body>
+<h1>Bienvenido al Parque Jurásico</h1>
+<p>Explora el parque y descubre las islas y visitantes:</p>
+<div class="button-container">
+    <a href="isla_cria.html" class="button">Isla Cría</a>
+    <a href="isla_terrestre.html" class="button">Isla Terrestre</a>
+    <a href="isla_voladora.html" class="button">Isla Voladora</a>
+    <a href="isla_acuatica.html" class="button">Isla Acuática</a>
+    <a href="hospital.html" class="button">Hospital</a>
+    <a href="cementerio.html" class="button">Cementerio</a>
+</div>
+
+<!-- Explicación de eventos -->
+<div class="events-list">
+
+    <h2>Eventos registrados en la consola:</h2>
+    <ul>
+        <li><strong>Generación de Huevos:</strong> Se generan huevos en la Isla Cría. Detalles de los huevos generados se muestran en la consola.</li>
+        <li><strong>Eclosión de Huevos:</strong> Cada huevo generado eclosiona después de un tiempo. El dinosaurio creado se registra y se distribuye automáticamente a una segun su habitad.</li>
+        <li><strong>Reproducción de Dinosaurios:</strong> Los dinosaurios compatibles (mismo tipo de dieta) en una isla intentan reproducirse periódicamente. Si tiene éxito, se genera un nuevo huevo.</li>
+        <li><strong>Peleas de Dinosaurios:</strong> Peridocamente los dinosaurios de las islas pelean. El perdedor puede morir (se envía al cementerio) o quedar herido (se envía al hospital).</li>
+        <li><strong>Curación de Dinosaurios:</strong> Dinosaurios heridos en el hospital se recuperan después de un tiempo y se redistribuyen a su isla original.</li>
+        <li><strong>Visitantes:</strong> Los visitantes van llegando al parque y visitan las diferentes islas del parque.</li>
+    </ul>
+</div>
+</body>
+</html>

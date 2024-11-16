@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
+import java.util.List;
 
 @Service
 public class HospitalService {
@@ -78,5 +79,19 @@ public class HospitalService {
         String mensaje = String.format("Dinosaurio %d regresó del hospital a la isla %s.",
                 dinosaurio.getId(), dinosaurio.getTipoHabitat());
         rabbitTemplate.convertAndSend(RabbitMQConfig.REGRESO_HOSPITAL_QUEUE, mensaje);
+    }
+
+    // Obtener todos los dinosaurios heridos
+    public List<Hospital> obtenerTodosLosDinosauriosHeridos() {
+        return hospitalRepository.findAll();
+    }
+
+    // Obtener dinosaurios heridos por dieta
+    public List<Hospital> obtenerDinosauriosHeridosPorDieta(String dieta) {
+        return hospitalRepository.findByDieta(dieta);
+    }
+
+    public List<Hospital> obtenerDinosauriosHeridosPorHabitat(String habitat) {
+        return hospitalRepository.findByTipoHabitat(habitat);
     }
 }

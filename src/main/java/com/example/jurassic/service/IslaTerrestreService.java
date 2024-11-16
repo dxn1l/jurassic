@@ -87,7 +87,9 @@ public class IslaTerrestreService {
             }
 
     }
-
+    public List<IslaTerrestre> obtenerPorDieta(String dieta) {
+        return islaTerrestreRepository.findByDieta(dieta);
+    }
 
 }
 

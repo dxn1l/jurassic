@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    .stat {
+      margin: 20px;
+      font-size: 24px;
+      color: #34495e;
+    }
+    .stat span {
+      font-weight: bold;
+      color: #e74c3c;
+    }
+  </style>
+</head>
+<body>
+<h1>Hospital</h1>
+
+<div class="stat" id="totalDinosauriosHeridos">Cargando número total de dinosaurios heridos...</div>
+<div class="stat" id="dinosauriosCarnivoros">Cargando dinosaurios carnívoros heridos...</div>
+<div class="stat" id="dinosauriosHerbivoros">Cargando dinosaurios herbívoros heridos...</div>
+<div class="stat" id="dinosauriosTerrestres">Cargando dinosaurios terrestres heridos...</div>
+<div class="stat" id="dinosauriosAcuaticos">Cargando dinosaurios acuáticos heridos...</div>
+<div class="stat" id="dinosauriosVoladores">Cargando dinosaurios voladores heridos...</div>
+
+<script>
+  function actualizarDatos() {
+    // Total de dinosaurios heridos
+    fetch('/hospital/todos')
+            .then(response => response.json())
+            .then(data => {
+              document.getElementById('totalDinosauriosHeridos').innerHTML =
+                      `Número total de dinosaurios heridos: <span>${data.length}</span>`;
+            })
+            .catch(error => {
+              console.error('Error al obtener los datos totales:', error);
+              document.getElementById('totalDinosauriosHeridos').innerHTML =
+                      `Error al cargar los datos. Intente nuevamente.`;
+            });
+
+    // Dinosaurios carnívoros heridos
+    fetch('/hospital/dieta/CARNIVORO')
+            .then(response => response.json())
+            .then(data => {
+              document.getElementById('dinosauriosCarnivoros').innerHTML =
+                      `Dinosaurios carnívoros heridos: <span>${data.length}</span>`;
+            })
+            .catch(error => {
+              console.error('Error al obtener los datos carnívoros:', error);
+              document.getElementById('dinosauriosCarnivoros').innerHTML =
+                      `Error al cargar los datos. Intente nuevamente.`;
+            });
+
+    // Dinosaurios herbívoros heridos
+    fetch('/hospital/dieta/HERBIVORO')
+            .then(response => response.json())
+            .then(data => {
+              document.getElementById('dinosauriosHerbivoros').innerHTML =
+                      `Dinosaurios herbívoros heridos: <span>${data.length}</span>`;
+            })
+            .catch(error => {
+              console.error('Error al obtener los datos herbívoros:', error);
+              document.getElementById('dinosauriosHerbivoros').innerHTML =
+                      `Error al cargar los datos. Intente nuevamente.`;
+            });
+
+    // Dinosaurios terrestres heridos
+    fetch('/hospital/habitat/TERRESTRE')
+            .then(response => response.json())
+            .then(data => {
+              document.getElementById('dinosauriosTerrestres').innerHTML =
+                      `Dinosaurios terrestres heridos: <span>${data.length}</span>`;
+            })
+            .catch(error => {
+              console.error('Error al obtener los datos terrestres:', error);
+              document.getElementById('dinosauriosTerrestres').innerHTML =
+                      `Error al cargar los datos. Intente nuevamente.`;
+            });
+
+    // Dinosaurios acuáticos heridos
+    fetch('/hospital/habitat/ACUATICO')
+            .then(response => response.json())
+            .then(data => {
+              document.getElementById('dinosauriosAcuaticos').innerHTML =
+                      `Dinosaurios acuáticos heridos: <span>${data.length}</span>`;
+            })
+            .catch(error => {
+              console.error('Error al obtener los datos acuáticos:', error);
+              document.getElementById('dinosauriosAcuaticos').innerHTML =
+                      `Error al cargar los datos. Intente nuevamente.`;
+            });
+
+    // Dinosaurios voladores heridos
+    fetch('/hospital/habitat/VOLADOR')
+            .then(response => response.json())
+            .then(data => {
+              document.getElementById('dinosauriosVoladores').innerHTML =
+                      `Dinosaurios voladores heridos: <span>${data.length}</span>`;
+            })
+            .catch(error => {
+              console.error('Error al obtener los datos voladores:', error);
+              document.getElementById('dinosauriosVoladores').innerHTML =
+                      `Error al cargar los datos. Intente nuevamente.`;
+            });
+  }
+
+  // Llamar a la función para obtener datos al cargar la página
+  actualizarDatos();
+
+  // Actualizar los datos cada 5 segundos
+  setInterval(actualizarDatos, 5000);
+</script>
+</body>
+</html>

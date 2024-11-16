@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isla Cría - Huevos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .stat {
+            margin: 20px;
+            font-size: 20px;
+            color: #34495e;
+        }
+        .stat span {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+<h1>Isla Cría - Huevos</h1>
+
+<div class="stat" id="totalHuevos">Cargando número total de huevos...</div>
+<div class="stat" id="huevosTerrestres">Cargando huevos terrestres...</div>
+<div class="stat" id="huevosAcuaticos">Cargando huevos acuáticos...</div>
+<div class="stat" id="huevosVoladores">Cargando huevos voladores...</div>
+<div class="stat" id="huevosHerbivoros">Cargando huevos herbívoros...</div>
+<div class="stat" id="huevosCarnivoros">Cargando huevos carnívoros...</div>
+
+<div class="message">
+    Revisar la consola para ver los eventos que suceden en la isla (generacion de huevos y eclosion de huevos)
+</div>
+
+<script>
+    // Función para cargar y actualizar los datos
+    function actualizarDatos() {
+        // Cargar número total de huevos
+        fetch('/huevos')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('totalHuevos').innerHTML = `Número total de huevos: <span>${data.length}</span>`;
+            });
+
+        // Cargar número de huevos por tipo de hábitat
+        fetch('/huevos/habitat/TERRESTRE')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('huevosTerrestres').innerHTML = `Huevos en hábitat terrestre: <span>${data.length}</span>`;
+            });
+
+        fetch('/huevos/habitat/ACUATICO')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('huevosAcuaticos').innerHTML = `Huevos en hábitat acuático: <span>${data.length}</span>`;
+            });
+
+        fetch('/huevos/habitat/VOLADOR')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('huevosVoladores').innerHTML = `Huevos en hábitat volador: <span>${data.length}</span>`;
+            });
+
+        // Cargar número de huevos por dieta
+        fetch('/huevos/dieta/HERBIVORO')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('huevosHerbivoros').innerHTML = `Huevos herbívoros: <span>${data.length}</span>`;
+            });
+
+        fetch('/huevos/dieta/CARNIVORO')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('huevosCarnivoros').innerHTML = `Huevos carnívoros: <span>${data.length}</span>`;
+            });
+    }
+
+    // Actualizar los datos al cargar la página
+    actualizarDatos();
+
+    // Configurar auto-actualización cada 5 segundos
+    setInterval(actualizarDatos, 5000);
+</script>
+</body>
+</html>
