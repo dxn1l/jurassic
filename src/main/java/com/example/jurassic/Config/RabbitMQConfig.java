@@ -16,6 +16,11 @@ public class RabbitMQConfig {
     public static final String REPRODUCCION_FALLIDA_QUEUE = "reproduccionFallidaQueue";
     public static final String SIN_SUFICIENTES_DINOS_QUEUE = "sinSuficientesDinosQueue";
     public static final String HUEVO_REPRODUCCION_QUEUE = "huevoReproduccionQueue";
+    public static final String PELEA_QUEUE = "peleaQueue";
+    public static final String MUERTE_PELEA_QUEUE = "muertepeleaQueue";
+    public static final String HERIDO_PELEA_QUEUE = "heridoPeleaQueue";
+    public static final String REGRESO_HOSPITAL_QUEUE = "regresoHospitalQueue";
+    public static final String ENVIO_CEMENTERIO_QUEUE = "envioCementerioQueue";
 
 
 
@@ -53,5 +58,38 @@ public class RabbitMQConfig {
     public Queue huevoReproduccionQueue() {
         return new Queue(HUEVO_REPRODUCCION_QUEUE, false);
     }
+
+    @Bean
+    public Queue envioCementerioQueue() {
+        return new Queue(ENVIO_CEMENTERIO_QUEUE, false);
+    }
+
+
+
+    @Bean
+    public Queue peleaQueue() {
+        return new Queue(  PELEA_QUEUE, false);
+    }
+
+    @Bean
+    public Queue muertePeleaQueue() {
+        return new Queue(MUERTE_PELEA_QUEUE, false);
+    }
+
+    @Bean
+    public Queue heridoPeleaQueue() {
+        return new Queue(HERIDO_PELEA_QUEUE, false);
+    }
+
+    @Bean
+    public Queue regresoHospitalQueue() {
+        return new Queue(REGRESO_HOSPITAL_QUEUE, false);
+    }
+
+    @Bean
+    public Queue cementerioQueue() {
+        return new Queue(ENVIO_CEMENTERIO_QUEUE, false);
+    }
+
 
 }

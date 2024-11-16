@@ -93,6 +93,30 @@ public class DinosaurioEventListener {
         logger.info("Evento de creación de huevo por reproducción: {}", mensaje);
     }
 
+    @RabbitListener(queues = RabbitMQConfig.PELEA_QUEUE)
+    public void onPelea(String mensaje) {
+        logger.info("Evento de pelea: {}", mensaje);
+    }
+
+    @RabbitListener(queues = RabbitMQConfig.MUERTE_PELEA_QUEUE)
+    public void onMuertePelea(String mensaje) {
+          logger.info("Evento de muerte por pelea: {}", mensaje);
+    }
+
+    @RabbitListener(queues = RabbitMQConfig.HERIDO_PELEA_QUEUE)
+    public void onHeridoPelea(String mensaje) {
+        logger.info("Evento de herido por pelea: {}", mensaje);
+    }
+
+    @RabbitListener(queues = RabbitMQConfig.REGRESO_HOSPITAL_QUEUE)
+    public void onRegresoHospital(String mensaje) {
+        logger.info("Evento de regreso del hospital: {}", mensaje);
+    }
+
+    @RabbitListener(queues = RabbitMQConfig.ENVIO_CEMENTERIO_QUEUE)
+    public void onEnvioCementerio(String mensaje) {
+        logger.info("Evento de envio al cementerio: {}", mensaje);
+    }
 }
 
 
