@@ -20,6 +20,7 @@ public class CementerioService {
                 dinosaurio.getEdad(),
                 LocalDateTime.now() // Fecha de muerte actual
         );
+        cementerio.setId(dinosaurio.getId()); // Asignar manualmente el ID
         cementerioRepository.save(cementerio);
         System.out.println("Dinosaurio con ID " + dinosaurio.getId() + " enviado al cementerio.");
     }
