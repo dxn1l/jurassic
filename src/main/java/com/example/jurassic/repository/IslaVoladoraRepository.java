@@ -3,4 +3,9 @@ package com.example.jurassic.repository;
 import com.example.jurassic.entity.IslaVoladora;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IslaVoladoraRepository extends JpaRepository<IslaVoladora, Long> {}
+import java.util.List;
+
+public interface IslaVoladoraRepository extends JpaRepository<IslaVoladora, Long> {
+    List<IslaVoladora> findByDieta(String dieta);
+
+}

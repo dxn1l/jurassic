@@ -81,5 +81,8 @@ public class IslaVoladoraService {
             }
 
     }
+    public List<IslaVoladora> obtenerPorDieta(String dieta) {
+        return islaVoladoraRepository.findByDieta(dieta);
+    }
 
 }

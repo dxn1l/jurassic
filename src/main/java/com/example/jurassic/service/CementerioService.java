@@ -8,6 +8,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Service
@@ -36,6 +37,19 @@ public class CementerioService {
 
     }
 
+    // Obtener todos los dinosaurios muertos
+    public List<Cementerio> obtenerTodosLosDinosauriosMuertos() {
+        return cementerioRepository.findAll();
+    }
+
+    // Obtener dinosaurios muertos por dieta
+    public List<Cementerio> obtenerDinosauriosMuertosPorDieta(String dieta) {
+        return cementerioRepository.findByDieta(dieta);
+    }
+
+    public List<Cementerio> obtenerDinosauriosMuertosPorHabitat(String habitat) {
+        return cementerioRepository.findByTipoHabitat(habitat);
+    }
 
 
 }

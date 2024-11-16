@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/islaacuatica")
 public class IslaAcuaticaController {
@@ -19,5 +21,10 @@ public class IslaAcuaticaController {
     @GetMapping("/todos")
     public Flux<IslaAcuatica> obtenerTodosAcuaticos() {
         return islaAcuaticaService.obtenerTodos();
+    }
+
+    @GetMapping("/dieta/{tipoDieta}")
+    public List<IslaAcuatica> obtenerDinosauriosPorDieta(@PathVariable String tipoDieta) {
+        return islaAcuaticaService.obtenerPorDieta(tipoDieta);
     }
 }

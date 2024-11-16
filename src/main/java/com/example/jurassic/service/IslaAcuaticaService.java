@@ -81,9 +81,9 @@ public class IslaAcuaticaService {
 
                 dinosaurioService.enviarMensajeReproduccionFallida(dino1, dino2);
             }
-
-
-
+    }
+    public List<IslaAcuatica> obtenerPorDieta(String dieta) {
+        return islaAcuaticaRepository.findByDieta(dieta);
     }
 }
 
