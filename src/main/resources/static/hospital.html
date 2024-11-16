@@ -8,18 +8,39 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fes.pngtree.com%2Ffreepng%2Fbuilding-of-hospital_14501058.html&psig=AOvVaw2rrtrUvM4GaSXBzJ5SR5Z5&ust=1731879114009000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMja0dfm4YkDFQAAAAAdAAAAABAJ");
+      background-image: url("https://png.pngtree.com/png-clipart/20240304/original/pngtree-building-of-hospital-png-image_14501058.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
       margin: 0;
       padding: 20px;
     }
     h1 {
-      color: #2c3e50;
+      color: black;
     }
     .stat {
       margin: 20px;
       font-size: 24px;
-      color: #34495e;
+      color: black;
     }
+
+    .button {
+      display: inline-block;
+      margin: 10px;
+      padding: 15px 30px;
+      font-size: 16px;
+      color: white;
+      background-color: #3498db;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .button:hover {
+      background-color: gray;
+    }
+
+
     .stat span {
       font-weight: bold;
       color: #e74c3c;
@@ -35,6 +56,11 @@
 <div class="stat" id="dinosauriosTerrestres">Cargando dinosaurios terrestres heridos...</div>
 <div class="stat" id="dinosauriosAcuaticos">Cargando dinosaurios acuáticos heridos...</div>
 <div class="stat" id="dinosauriosVoladores">Cargando dinosaurios voladores heridos...</div>
+
+<div class="button-container">
+
+  <a href="index.html" class="button">Menu </a> </div>
+
 
 <script>
   function actualizarDatos() {

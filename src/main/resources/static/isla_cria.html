@@ -8,21 +8,47 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-image: url("https://www.nationalgeographic.com.es/ciencia/huevos-dinosaurio-donde-se-encuentran-espana_21932");
+            background-image: url("https://content.nationalgeographic.com.es/medio/2024/03/27/huevos-dinosaurio-modelo_5f98e4de_240327140101_1280x742.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center 10%;
             margin: 0;
             padding: 20px;
         }
         h1 {
-            color: #2c3e50;
+            color: white;
         }
         .stat {
             margin: 20px;
             font-size: 20px;
-            color: #34495e;
+            color: white;
         }
         .stat span {
             font-weight: bold;
             color: #e74c3c;
+        }
+
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 16px;
+            color: white;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: gray;
+        }
+
+        .message {
+            margin-top: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: red;
         }
     </style>
 </head>
@@ -39,6 +65,10 @@
 <div class="message">
     Revisar la consola para ver los eventos que suceden en la isla (generacion de huevos y eclosion de huevos)
 </div>
+
+<div class="button-container">
+
+    <a href="index.html" class="button">Menu </a> </div>
 
 <script>
     // Función para cargar y actualizar los datos

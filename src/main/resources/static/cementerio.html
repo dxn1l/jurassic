@@ -8,18 +8,39 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.businessinsider.es%2Fencuentra-fosil-dinosaurio-mantiene-secreto-1369585&psig=AOvVaw04ngGO2m82UuQXz4NCfTYk&ust=1731878745932000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJiX_Z3l4YkDFQAAAAAdAAAAABAE");
+            background-image: url("https://cdn.businessinsider.es/sites/navi.axelspringer.es/public/media/image/2024/03/esqueleto-dinosaurio-3282864.jpg?tf=1200x");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
             margin: 0;
             padding: 20px;
         }
         h1 {
-            color: #2c3e50;
+            color: white;
         }
         .stat {
             margin: 20px;
             font-size: 24px;
-            color: #34495e;
+            color: white;
         }
+
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 16px;
+            color: white;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: gray;
+        }
+
+        
         .stat span {
             font-weight: bold;
             color: #e74c3c;
@@ -35,6 +56,10 @@
 <div class="stat" id="dinosauriosTerrestres">Cargando dinosaurios terrestres muertos...</div>
 <div class="stat" id="dinosauriosAcuaticos">Cargando dinosaurios acuáticos muertos...</div>
 <div class="stat" id="dinosauriosVoladores">Cargando dinosaurios voladores muertos...</div>
+
+<div class="button-container">
+
+    <a href="index.html" class="button">Menu </a> </div>
 
 <script>
     function actualizarDatos() {
