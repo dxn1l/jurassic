@@ -24,7 +24,7 @@ public class VisitanteScheduler {
      */
     @Scheduled(fixedRate = 15000) // Cada 15 segundos
     public void generarVisitantes() {
-        visitanteService.generarVisitantes(5)
+        visitanteService.generarVisitantes(2)
                 .doOnComplete(() -> logger.info("Evento: Llegada de visitantes completado."))
                 .subscribe();
     }

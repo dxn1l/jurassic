@@ -29,12 +29,12 @@ public class VisitanteDistribucionService {
      */
     public Flux<Visitante> distribuirVisitantes() {
         return visitanteService.obtenerVisitantesEntrada() // Selecciona solo los que están en la entrada
-                .buffer(10) // Procesar en grupos de 10
+                .buffer(5) // Procesar en grupos de 10
                 .flatMap(grupo -> {
                     grupo.forEach(visitante -> {
                         String isla = seleccionarIslaAleatoria();
                         visitante.setIsla(isla); // Asignar la nueva isla al visitante
-                        String mensaje = String.format("Visitante con ID=:%d la decidido visitar la Isla:=%s", visitante.getId(), isla);
+                        String mensaje = String.format("Visitante con ID=:%d ha decidido visitar la Isla:=%s", visitante.getId(), isla);
                         rabbitTemplate.convertAndSend(RabbitMQConfig.VISITANTE_DISTRIBUIDO_QUEUE, mensaje);
                     });
 
