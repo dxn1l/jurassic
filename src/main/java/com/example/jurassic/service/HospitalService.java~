@@ -1,10 +1,8 @@
 package com.example.jurassic.service;
 
-import com.example.jurassic.Config.RabbitMQConfig;
 import com.example.jurassic.entity.Dinosaurio;
 import com.example.jurassic.entity.Hospital;
 import com.example.jurassic.repository.HospitalRepository;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -29,9 +27,6 @@ public class HospitalService {
     @Autowired
     private IslaVoladoraService islaVoladoraService;
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
-
     public Mono<Void> procesarDinosaurioEnHospital(Dinosaurio dinosaurio) {
         return Mono.delay(Duration.ofSeconds(20)) // Esperar 20 segundos
                 .flatMap(tick -> {
@@ -39,7 +34,7 @@ public class HospitalService {
                     if (hospital != null) {
                         hospitalRepository.delete(hospital); // Eliminar del hospital
                         reintroducirDinosaurioEnIsla(dinosaurio); // Reintroducir en la isla correspondiente
-                        enviarMensajeRegresoDelHospital(dinosaurio); // Enviar mensaje de regreso
+                        System.out.println("Dinosaurio con ID " + dinosaurio.getId() + " ha regresado a su isla.");
                     }
                     return Mono.empty();
                 });
@@ -72,11 +67,5 @@ public class HospitalService {
             );
             return hospitalRepository.save(hospital);
         });
-    }
-
-    private void enviarMensajeRegresoDelHospital(Dinosaurio dinosaurio) {
-        String mensaje = String.format("Dinosaurio %d regresó del hospital a la isla %s.",
-                dinosaurio.getId(), dinosaurio.getTipoHabitat());
-        rabbitTemplate.convertAndSend(RabbitMQConfig.REGRESO_HOSPITAL_QUEUE, mensaje);
     }
 }
