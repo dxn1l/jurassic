@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Cementerio {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String dieta;
     private String tipoHabitat;

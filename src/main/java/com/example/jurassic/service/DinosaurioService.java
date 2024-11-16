@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -129,6 +130,13 @@ public class DinosaurioService {
                 " debido a la falta de dinosaurios.";
         rabbitTemplate.convertAndSend(RabbitMQConfig.SIN_SUFICIENTES_DINOS_QUEUE, mensaje);
 
+    }
+
+    public void eliminarDinosaurio(Dinosaurio dinosaurio) {
+        dinosaurioRepository.delete(dinosaurio);
+    }
+    public List<String> obtenerTodasLasIslas() {
+        return Arrays.asList("TERRESTRE", "ACUATICO", "VOLADOR");
     }
 
 
