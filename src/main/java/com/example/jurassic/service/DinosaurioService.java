@@ -34,6 +34,9 @@ public class DinosaurioService {
     private IslaAcuaticaService islaAcuaticaService;
 
     @Autowired
+    private CementerioService cementerioService;
+
+    @Autowired
     private RabbitTemplate rabbitTemplate;
 
     private static final Logger logger = LoggerFactory.getLogger(IslaCriaService.class);
@@ -49,6 +52,14 @@ public class DinosaurioService {
     // Obtener dinosaurios por tipo de hábitat (terrestre, acuático, volador)
     public List<Dinosaurio> obtenerDinosauriosPorTipoHabitat(String tipoHabitat) {
         return dinosaurioRepository.findByTipoHabitat(tipoHabitat);
+    }
+
+    @Transactional
+    public void procesarMuerteDinosaurio(Dinosaurio dinosaurio) {
+        // Enviar el dinosaurio al cementerio
+        cementerioService.enviarDinosaurioAlCementerio(dinosaurio);
+        // Eliminar el dinosaurio de la base de datos
+        dinosaurioRepository.delete(dinosaurio);
     }
 
     // Obtener dinosaurios por dieta (herbívoro, carnívoro)
@@ -88,14 +99,6 @@ public class DinosaurioService {
         //logger.info("Dinosaurio con ID: {} actualizado en la base de datos", dinosaurio.getId());
     }
 
-    /**
-     * Elimina un dinosaurio de la base de datos.
-     * @param dinosaurio Dinosaurio a eliminar.
-     */
-    public void eliminarDinosaurio(Dinosaurio dinosaurio) {
-        dinosaurioRepository.delete(dinosaurio);
-        //logger.info("Dinosaurio con ID: {} eliminado de la base de datos", dinosaurio.getId());
-    }
 
     /**
      * Envía un mensaje a RabbitMQ indicando que un dinosaurio ha muerto.
